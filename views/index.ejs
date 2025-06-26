@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <p>Lista de veiculos</p>
+    <p>Quantidade de veículos: <%= veiculos.length %></p>
+
+    <table>
+      <thead>
+        <tr>
+          <td>Tipo</td>
+          <td>Marca</td>
+          <td>Modelo</td>
+          <td>Ano</td>
+          <td>Preco</td>
+          <td>KM</td>
+          <td>Acoes</td>
+          
+        </tr>
+      </thead>
+      <tbody>
+        <%
+        veiculos.forEach(item => {
+          %>
+      <tr> 
+        <td><a href="/edit/<%= item._id%>" title="Editar"><%= item.tipo %></a></td>
+        <td><%= item.marca %></td>
+        <td><%= item.modelo %></td>
+        <td><%= item.ano %></td>
+        <td><%= item.preco %></td>
+        <td><%= item.km %></td>
+        <td>
+           <a href="/edit/<%= item._id%>">
+              <img src="/images/edit.png" alt="icone de botao pra editar" title="Editar">
+            </a>
+            
+        </td>
+        
+      </tr>
+
+          <%          
+        })
+      %>
+
+      </tbody>
+    </table>
+
+    <a href="/new">Cadastrar cliente</a>
+
+  </body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><% title %></title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+<body>
+
+    <h1><%= title %></h1>
+    <p>Preencha os compos pra crear um usuario</p>
+
+    <form action="/new" method="POST" >
+        <fieldset>
+            <legend>Dados cadastrais</legend>
+            <p>
+                Tipo: <input type="text" name="tipo" value="<%=veiculo.tipo%>">
+            </p>
+            <p>
+                Marca: <input type="text" name="marca" value="<%=veiculo.marca%>">
+            </p>
+            <p>
+                Modelo: <input type="text" name="modelo" value="<%=veiculo.modelo%>">
+            </p>
+            <p>
+                Ano: <input type="number" name="ano" value="<%=veiculo.ano%>">
+            </p>
+            <p>
+                Preco: <input type="number" name="preco" value="<%=veiculo.preco%>">
+            </p>
+            <p>
+                KM: <input type="number" name="km" value="<%=veiculo.km%>">
+            </p>
+            <p>
+                Opcionais: <input type="text" name="opcionais" value="<%=veiculo.opcionais%>">
+            </p>
+            <p>
+                Cambio: <input type="text" name="cambio" value="<%=veiculo.cambio%>">
+            </p>      
+            
+            <p>
+                <input type="submit" value="salvar"></input>
+                <a href="/">Cancelar</a>
+            </p>
+
+            <p>
+               <input type="hidden" name="id" value="<%=veiculo._id%>">         
+            </p>
+        </fieldset>
+        
+    </form>
+
+    <script>
+        if(window.location.search){
+            const error = window.location.search.split('=')[1];
+            alert(decodeURI(error))
+        }
+    </script>
+    
+    
+</body>
+</html>
