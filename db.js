@@ -2,26 +2,30 @@ const {MongoClient, ObjectId} = require("mongodb");
 
 async function dbConnect() {
 
+    if(global.connection) return global.connection;
+
+
     try {
-        const client = new MongoClient("mongodb://127.0.0.1:27017");
+        const client = new MongoClient(process.env.MONGODB_CONNECTION);
         await client.connect();
     
         global.connection = client.db("consecionaria");
     
-        console.log("Connected!")
+        console.log(" DB Connected!")
         
-    } catch (error) {
-        console.log(error.message);        
+    } catch (err) {        
+        console.log(err.message);        
+        global.connection = null;
     }
+
+    return global.connection;
     
 }
 
-dbConnect();
-
-function findVeiculos(){
+async function findVeiculos(){
+    const connection = await dbConnect();
     try {
-
-        return global.connection
+        return connection
         .collection("veiculos")
         .find({})
         .toArray();      
@@ -33,11 +37,13 @@ function findVeiculos(){
 }
 
 
-function findVeiculo(id){
+async function findVeiculo(id){
+    const connection = await dbConnect();
+    
     
     try {
         const objectId =  ObjectId.createFromHexString(id);
-        return global.connection
+        return connection
         .collection("veiculos")
         .findOne({_id:objectId});  
         
@@ -47,9 +53,10 @@ function findVeiculo(id){
 
 }
 
-function insertVeiculo(veiculo){
+async function insertVeiculo(veiculo){
+    const connection = await dbConnect();
     try {
-        return global.connection
+        return connection
             .collection("veiculos")
             .insertOne(veiculo);
         
@@ -59,10 +66,11 @@ function insertVeiculo(veiculo){
 }
 
 
-function updateVeiculo(id, veiculoData){
+async function updateVeiculo(id, veiculoData){
+    const connection = await dbConnect();
     try {
         const objectId = ObjectId.createFromHexString(id);
-        return global.connection
+        return connection
             .collection("veiculos")
             .insertOne({_id:objectId},{$set: veiculoData});
         
@@ -74,13 +82,14 @@ function updateVeiculo(id, veiculoData){
 
 }
 
-function deleteVeiculo(){
+async function deleteVeiculo(id){
+    const connection = await dbConnect();
     try {
-
         const objectId = ObjectId.createFromHexString(id);
-        return global.connection
+        return connection
             .collection("veiculos")
-            .deleteOne({_id:objectId},{$set: customer});
+            .deleteOne({_id:objectId});
+            //.deleteOne({_id:objectId},{$set: veiculos});
         
     } catch (error) {
         console.log(error.message);
@@ -92,7 +101,8 @@ module.exports = {
     insertVeiculo,
     updateVeiculo,
     deleteVeiculo,
-    findVeiculo
+    findVeiculo,
+    dbConnect
     
 }
 

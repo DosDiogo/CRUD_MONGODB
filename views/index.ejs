@@ -34,8 +34,12 @@
         <td><%= item.preco %></td>
         <td><%= item.km %></td>
         <td>
-           <a href="/edit/<%= item._id%>">
-              <img src="/images/edit.png" alt="icone de botao pra editar" title="Editar">
+            <a href="/edit/<%= item._id%>">
+              <img src="/images/edit.png" alt="icone de botao para editar item" title="Editar">
+            </a>
+
+            <a href="/delete/<%= item._id%>" onclick="return confirm('Tem certeza que deseja excluir esse veiculo?')" >
+              <img src="/images/delete.png" alt="icone de botao para excluir item" title="Excluir">
             </a>
             
         </td>

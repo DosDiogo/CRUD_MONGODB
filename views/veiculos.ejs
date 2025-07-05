@@ -35,9 +35,12 @@
             <p>
                 Opcionais: <input type="text" name="opcionais" value="<%=veiculo.opcionais%>">
             </p>
-            <p>
-                Cambio: <input type="text" name="cambio" value="<%=veiculo.cambio%>">
-            </p>      
+
+            <select name="cambio" id="cambio" >
+                <option>Tipo de Cambio</option>                
+                <option value="M">Manual</option>
+                <option value="A">Automático</option>
+            </select>
             
             <p>
                 <input type="submit" value="salvar"></input>
@@ -56,6 +59,14 @@
             const error = window.location.search.split('=')[1];
             alert(decodeURI(error))
         }
+
+        <%
+            if(veiculo.cambio){
+                %>
+                    document.getElementById("cambio").value = "<%= veiculo.cambio %>";
+                <%
+            }
+        %>
     </script>
     
     

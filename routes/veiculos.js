@@ -9,46 +9,55 @@ router.get('/', (req, res, next) => {
     res.render('index', { title: 'Consecionaria', veiculos: veiculos });
 
   })
-  .catch(error => console.log(error));
+  .catch(error => {
+    console.log(error)
+    res.render("error", {message:"Nao foi possivel listar os veiculos, tente novamente mais tarde", error})});
+  
 });
 
 router.post('/new', (req, res, next) => {
-  const {tipo, marca, modelo, ano, preco, km, id} = req.body;
+  const {tipo, marca, modelo, ano, preco, km, cambio, id} = req.body;
 
-  if(!tipo || !marca || !modelo || !ano || !preco || !km)
+  if(!tipo || !marca || !modelo || !ano || !preco || !km && !/[0-9]+/.test(res.body))
     return res.redirect("/new?error=0 campos obrigatorios!");
 
-  if(req.body.ano || req.body.preco || req.body.km && !/[0-9]+/.test(res.body))
-   return res.redirect("/new?error=0 campos obrigatorios!");
+    //if(req.body.ano || req.body.preco || )
+   //return res.redirect("/new?error=0 campos obrigatorios!");
 
-  const newVehicle = {tipo, marca, modelo, ano, preco, km}
+  const veiculo = {tipo, marca, modelo, ano, preco, km, cambio}
 
-  const promise = id ? db.updateVeiculo(id, newVehicle) : db.insertVeiculo(newVehicle);
+  const promise = id ? db.updateVeiculo(id, veiculo) : db.insertVeiculo(veiculo);
 
   promise
   .then(result => {
     res.redirect("/");
-    //res.render('index', { title: 'Consecionaria', veiculos: veiculos });
+    //res.render('index', { title: 'Consecionaria', veiculos: veiculo });
 
   })
   .catch(error => console.log(error));
-});
+})
 
 router.get('/edit/:veiculoId', (req, res, next) => {
   const id = req.params.veiculoId;
   db.findVeiculo(id)
     .then(veiculo => {
-      console.log(veiculo)
-      res.render('veiculos', {title: "Editar", veiculo}) 
+      res.render('veiculos', {title: "Editar Veiculo", veiculo}) 
     })
     .catch(error => console.log(error));  
   
-});
+})
+
+router.get('/delete/:veiculoId',(req, res, next) => {
+  const id = req.params.veiculoId;
+  db.deleteVeiculo(id)
+    .then(result => {res.redirect("/")})
+    .catch(error => console.log(error));  
+})
 
 router.get('/new', (req, res, next) => {
   res.render('veiculos', { title: 'Cadastro de veiculos', veiculo:{}});
   
-});
+})
 
 
 
