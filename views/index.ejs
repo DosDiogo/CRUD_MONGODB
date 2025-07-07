@@ -1,59 +1,23 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Lista de veiculos</p>
-    <p>Quantidade de veículos: <%= veiculos.length %></p>
+<%-include("top.ejs")%>
 
-    <table>
-      <thead>
-        <tr>
-          <td>Tipo</td>
-          <td>Marca</td>
-          <td>Modelo</td>
-          <td>Ano</td>
-          <td>Preco</td>
-          <td>KM</td>
-          <td>Acoes</td>
-          
-        </tr>
-      </thead>
-      <tbody>
-        <%
-        veiculos.forEach(item => {
-          %>
-      <tr> 
-        <td><a href="/edit/<%= item._id%>" title="Editar"><%= item.tipo %></a></td>
-        <td><%= item.marca %></td>
-        <td><%= item.modelo %></td>
-        <td><%= item.ano %></td>
-        <td><%= item.preco %></td>
-        <td><%= item.km %></td>
-        <td>
-            <a href="/edit/<%= item._id%>">
-              <img src="/images/edit.png" alt="icone de botao para editar item" title="Editar">
-            </a>
+<div class="row">
+  <div class="col-2">
+    <a href="/veiculos" class="btn btn-primary">Gestao de veiculos</a>
+  </div>
 
-            <a href="/delete/<%= item._id%>" onclick="return confirm('Tem certeza que deseja excluir esse veiculo?')" >
-              <img src="/images/delete.png" alt="icone de botao para excluir item" title="Excluir">
-            </a>
-            
-        </td>
-        
-      </tr>
+  <div class="col-2">
+    <a href="/users" class="btn btn-primary">Gestao de usuarios</a>
+  </div>
 
-          <%          
-        })
-      %>
+  <div class="col-2">
 
-      </tbody>
-    </table>
+    <form action="/logout" method="POST">
+      <input type="submit" value="Logout" class="btn btn-secondary" >
+    </form>
 
-    <a href="/new">Cadastrar cliente</a>
+  </div>
 
-  </body>
-</html>
+</div>
+
+<%-include("bottom.ejs")%>
+ 

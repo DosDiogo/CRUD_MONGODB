@@ -9,7 +9,7 @@ async function dbConnect() {
         const client = new MongoClient(process.env.MONGODB_CONNECTION);
         await client.connect();
     
-        global.connection = client.db("consecionaria");
+        global.connection = client.db(process.env.MONGODB_DATABASE);
     
         console.log(" DB Connected!")
         

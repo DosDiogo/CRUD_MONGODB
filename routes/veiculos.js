@@ -3,10 +3,15 @@ const router = express.Router();
 
 const db = require("../db")
 
+router.get('/new', (req, res, next) => {
+  res.render('newVeiculo', { title: 'Cadastro de veiculos', veiculos:{}});
+  
+})
+
 router.get('/', (req, res, next) => {
   db.findVeiculos()
   .then(veiculos => {
-    res.render('index', { title: 'Consecionaria', veiculos: veiculos });
+    res.render('veiculos', { title: 'Consecionaria', veiculos: veiculos, qty: veiculos.length});
 
   })
   .catch(error => {
@@ -19,7 +24,7 @@ router.post('/new', (req, res, next) => {
   const {tipo, marca, modelo, ano, preco, km, cambio, id} = req.body;
 
   if(!tipo || !marca || !modelo || !ano || !preco || !km && !/[0-9]+/.test(res.body))
-    return res.redirect("/new?error=0 campos obrigatorios!");
+    return res.redirect("/veiculos/new?error=0 campos obrigatorios!");
 
     //if(req.body.ano || req.body.preco || )
    //return res.redirect("/new?error=0 campos obrigatorios!");
@@ -30,7 +35,7 @@ router.post('/new', (req, res, next) => {
 
   promise
   .then(result => {
-    res.redirect("/");
+    res.redirect("/veiculos");
     //res.render('index', { title: 'Consecionaria', veiculos: veiculo });
 
   })
@@ -54,10 +59,7 @@ router.get('/delete/:veiculoId',(req, res, next) => {
     .catch(error => console.log(error));  
 })
 
-router.get('/new', (req, res, next) => {
-  res.render('veiculos', { title: 'Cadastro de veiculos', veiculo:{}});
-  
-})
+
 
 
 

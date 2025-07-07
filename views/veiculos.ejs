@@ -1,74 +1,52 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><% title %></title>
-    <link rel="stylesheet" href="/stylesheets/style.css">
-</head>
-<body>
+<%-include("top.ejs")%>
+    <p>Lista de veiculos</p>
+    <div class="alert alert-info">Quantidade de veículos: <%= qty %></div>
 
-    <h1><%= title %></h1>
-    <p>Preencha os compos pra crear um usuario</p>
-
-    <form action="/new" method="POST" >
-        <fieldset>
-            <legend>Dados cadastrais</legend>
-            <p>
-                Tipo: <input type="text" name="tipo" value="<%=veiculo.tipo%>">
-            </p>
-            <p>
-                Marca: <input type="text" name="marca" value="<%=veiculo.marca%>">
-            </p>
-            <p>
-                Modelo: <input type="text" name="modelo" value="<%=veiculo.modelo%>">
-            </p>
-            <p>
-                Ano: <input type="number" name="ano" value="<%=veiculo.ano%>">
-            </p>
-            <p>
-                Preco: <input type="number" name="preco" value="<%=veiculo.preco%>">
-            </p>
-            <p>
-                KM: <input type="number" name="km" value="<%=veiculo.km%>">
-            </p>
-            <p>
-                Opcionais: <input type="text" name="opcionais" value="<%=veiculo.opcionais%>">
-            </p>
-
-            <select name="cambio" id="cambio" >
-                <option>Tipo de Cambio</option>                
-                <option value="M">Manual</option>
-                <option value="A">Automático</option>
-            </select>
-            
-            <p>
-                <input type="submit" value="salvar"></input>
-                <a href="/">Cancelar</a>
-            </p>
-
-            <p>
-               <input type="hidden" name="id" value="<%=veiculo._id%>">         
-            </p>
-        </fieldset>
-        
-    </form>
-
-    <script>
-        if(window.location.search){
-            const error = window.location.search.split('=')[1];
-            alert(decodeURI(error))
-        }
-
+    <table class="table table-bordered table-striped table-hover">
+      <thead class="thead-dark">
+        <tr>
+          <td>Tipo</td>
+          <td>Marca</td>
+          <td>Modelo</td>
+          <td>Ano</td>
+          <td>Preco</td>
+          <td>KM</td>
+          <td>Acoes</td>
+          
+        </tr>
+      </thead>
+      <tbody>
         <%
-            if(veiculo.cambio){
-                %>
-                    document.getElementById("cambio").value = "<%= veiculo.cambio %>";
-                <%
-            }
-        %>
-    </script>
-    
-    
-</body>
+        veiculos.forEach(item => {
+          %>
+      <tr> 
+        <td><a href="/veiculos/edit/<%= item._id%>" title="Editar"><%= item.tipo %></a></td>
+        <td><%= item.marca %></td>
+        <td><%= item.modelo %></td>
+        <td><%= item.ano %></td>
+        <td><%= item.preco %></td>
+        <td><%= item.km %></td>
+        <td>
+            <a href="/veiculos/edit/<%= item._id%>">
+              <img src="/images/edit.png" alt="icone de botao para editar item" title="Editar">
+            </a>
+
+            <a href="/veiculos/delete/<%= item._id%>" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja excluir esse veiculo?')" >
+              <img src="/images/delete.png" alt="icone de botao para excluir item" title="Excluir">
+            </a>
+            
+        </td>
+        
+      </tr>
+
+          <%          
+        })
+      %>
+
+      </tbody>
+    </table>
+
+    <a href="/veiculos/new" class="btn btn-primary" >Cadastrar cliente</a>
+
+  </body>
 </html>

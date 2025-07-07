@@ -1,0 +1,64 @@
+<%- include("top.ejs") %>
+    <p>Preencha os compos pra crear um usuario</p>
+
+    <form action="/veiculos/new" method="POST" >
+        <fieldset>
+            <legend>Dados cadastrais</legend>
+            <p>
+                Tipo: <input type="text" name="tipo" value="<%=veiculos.tipo%>">
+            </p>
+            <p>
+                Marca: <input type="text" name="marca" value="<%=veiculos.marca%>">
+            </p>
+            <p>
+                Modelo: <input type="text" name="modelo" value="<%=veiculos.modelo%>">
+            </p>
+            <p>
+                Ano: <input type="number" name="ano" value="<%=veiculos.ano%>">
+            </p>
+            <p>
+                Preco: <input type="number" name="preco" value="<%=veiculos.preco%>">
+            </p>
+            <p>
+                KM: <input type="number" name="km" value="<%=veiculos.km%>">
+            </p>
+            <p>
+                Opcionais: <input type="text" name="opcionais" value="<%=veiculos.opcionais%>">
+            </p>
+
+            <select name="cambio" id="cambio" >
+                <option>Tipo de Cambio</option>                
+                <option value="M">Manual</option>
+                <option value="A">Automático</option>
+            </select>
+            
+            <p>
+                <input type="submit" value="salvar"></input>
+                <a href="/">Cancelar</a>
+            </p>
+
+            <p>
+               <input type="hidden" name="id" value="<%=veiculos._id%>">         
+            </p>
+        </fieldset>
+        
+    </form>
+
+    <script>
+        if(window.location.search){
+            const error = window.location.search.split('=')[1];
+            alert(decodeURI(error))
+        }
+
+        <%
+            if(veiculos.cambio){
+                %>
+                    document.getElementById("cambio").value = "<%= veiculos.cambio %>";
+                <%
+            }
+        %>
+    </script>
+    
+    
+</body>
+</html>
