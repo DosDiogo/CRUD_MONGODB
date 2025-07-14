@@ -1,48 +1,84 @@
 <%- include("top.ejs") %>
-    <p>Preencha os compos pra crear um usuario</p>
+    <p>Preencha os compos pra crear ou editar usuario</p>
 
-    <form action="/veiculos/new" method="POST" >
-        <fieldset>
-            <legend>Dados cadastrais</legend>
-            <p>
-                Tipo: <input type="text" name="tipo" value="<%=veiculos.tipo%>">
-            </p>
-            <p>
-                Marca: <input type="text" name="marca" value="<%=veiculos.marca%>">
-            </p>
-            <p>
-                Modelo: <input type="text" name="modelo" value="<%=veiculos.modelo%>">
-            </p>
-            <p>
-                Ano: <input type="number" name="ano" value="<%=veiculos.ano%>">
-            </p>
-            <p>
-                Preco: <input type="number" name="preco" value="<%=veiculos.preco%>">
-            </p>
-            <p>
-                KM: <input type="number" name="km" value="<%=veiculos.km%>">
-            </p>
-            <p>
-                Opcionais: <input type="text" name="opcionais" value="<%=veiculos.opcionais%>">
-            </p>
+    <div class="col-6">
+        <form action="/veiculos/new" method="POST">           
+            <div class="row mb-3">
+                <div class="form-group">
+                    <label for="tipo">Tipo:</label>
+                    <input type="text" name="tipo" value="<%=veiculos.tipo%>" placeholder="Tipo de veiculo" class="form-control" required>
+                </div>
+            </div>
 
-            <select name="cambio" id="cambio" >
-                <option>Tipo de Cambio</option>                
-                <option value="M">Manual</option>
-                <option value="A">Automático</option>
-            </select>
+            <div class="row mb-3">
+                <div class="form-group">
+                    <label for="marca">Marca:</label>
+                    <input type="text" name="marca" value="<%=veiculos.marca%>" placeholder="Marca do veiculo" class="form-control" required>
+                    
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="form-group">
+                    <label for="modelo">Modelo:</label>
+                    <input type="text" name="modelo" value="<%=veiculos.modelo%>" placeholder="Modelo do veiculo" class="form-control" required>         
+                    
+                </div>
+            </div>
+
+             <div class="row mb-3">
+                <div class="form-group">
+                    <label for="km">Km:</label>
+                    <input type="number" name="km" value="<%=veiculos.km%>" placeholder="Kilometragem do veiculo" class="form-control" required>         
+                    
+                </div>
+            </div>
             
-            <p>
-                <input type="submit" value="salvar"></input>
-                <a href="/">Cancelar</a>
-            </p>
+            <div class="row mb-3">
+                <div class="form-group">
+                    <label for="ano">Ano:</label>
+                    <input type="number" name="ano" value="<%=veiculos.ano%>" placeholder="Ano de fabricacao" class="form-control" required>
+                    
+                </div>
+            </div>
 
-            <p>
-               <input type="hidden" name="id" value="<%=veiculos._id%>">         
-            </p>
-        </fieldset>
+            <div class="row mb-3">
+                <div class="form-group">
+                    <label for="name">Preco:</label>
+                    <input type="number" name="preco" value="<%=veiculos.preco%>" placeholder="Preço" class="form-control" required>
+                    
+                    
+                </div>
+            </div>
+
+            
+            <div class="row mb-3">
+                <div class="form-group">
+                    <label for="name">Opcionais:</label>
+                    <input type="text" name="opcionais" value="<%=veiculos.opcionais%>" placeholder="Opcionais" class="form-control" required>               
+                    
+                    
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <select name="cambio" id="cambio" class="form-control" >
+                    <option>Selecione tipo de cambio</option>
+                    <option value="M">Manual</option>
+                    <option value="A">Automático</option>
+                </select>
+
+            </div>           
         
-    </form>
+            <input type="hidden" name="id" value="<%=veiculos._id%>">
+            
+            <div>
+                <input type="submit" value="Salvar" class="btn btn-primary" ></input>
+                <a href="/veiculos" class="btn btn-secondary" >Cancelar</a>
+            </div>
+
+        </form>
+    </div>
 
     <script>
         if(window.location.search){

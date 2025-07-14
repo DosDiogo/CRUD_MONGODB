@@ -22,32 +22,45 @@ async function dbConnect() {
     
 }
 
-async function findVeiculos(){
+/*
+
+async function countVeiculos(){
+     const connection = await dbConnect();
+     return connection
+                    .collection("veiculos")
+                    .countDocuments();
+}
+
+*/
+
+async function findVeiculos(page = 1){
+    const totalSkip = (page - 1) * process.env.PAGE_SIZE;
+    console.log(totalSkip)
     const connection = await dbConnect();
     try {
         return connection
         .collection("veiculos")
         .find({})
+        .skip(totalSkip)
+        .limit(parseInt(process.env.PAGE_SIZE))
         .toArray();      
         
     } catch (error) {
-        console.log(error.message);
+        console.log(error);
     }
 
 }
 
-
 async function findVeiculo(id){
-    const connection = await dbConnect();
-    
-    
+    const connection = await dbConnect();    
     try {
         const objectId =  ObjectId.createFromHexString(id);
-        return connection
+        return  connection
         .collection("veiculos")
         .findOne({_id:objectId});  
         
     } catch (error) {
+    
         console.log(error.message);
     }
 
@@ -67,6 +80,8 @@ async function insertVeiculo(veiculo){
 
 
 async function updateVeiculo(id, veiculoData){
+    console.log("Passoua aqui");
+    console.log(veiculoData);
     const connection = await dbConnect();
     try {
         const objectId = ObjectId.createFromHexString(id);
@@ -102,6 +117,7 @@ module.exports = {
     updateVeiculo,
     deleteVeiculo,
     findVeiculo,
+    //countVeiculos,
     dbConnect
     
 }

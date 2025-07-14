@@ -1,6 +1,5 @@
 <%-include("top.ejs")%>
     <p>Lista de veiculos</p>
-    <div class="alert alert-info">Quantidade de veículos: <%= qty %> </div>
 
     <table class="table table-bordered table-striped table-hover">
       <thead class="thead-dark">
@@ -11,14 +10,13 @@
           <td>Ano</td>
           <td>Preco</td>
           <td>KM</td>
-          <td>Opcionais</td>
-          <td>Cambio</td>
-          <td>Acoes</td>          
+          <td>Acoes</td>
+          
         </tr>
       </thead>
       <tbody>
         <%
-        veiculos.forEach(item => {
+        veiculo.forEach(item => {
           %>
       <tr> 
         <td><a href="/veiculos/edit/<%= item._id%>" title="Editar"><%= item.tipo %></a></td>
@@ -27,8 +25,6 @@
         <td><%= item.ano %></td>
         <td><%= item.preco %></td>
         <td><%= item.km %></td>
-        <td><%= item.opcionais %></td>
-        <td><%= item.cambio %></td>
         <td>
             <a href="/veiculos/edit/<%= item._id%>">
               <img src="/images/edit.png" alt="icone de botao para editar item" title="Editar">
@@ -49,23 +45,7 @@
       </tbody>
     </table>
 
-    <section class="container">
-      <div class="row">
-
-        <div class="col">
-          <a href="/veiculos/new" class="btn btn-primary" >Cadastrar Cliente</a>
-        </div>
-        
-        <div class="col">
-          <a href="/" class="btn btn-secondary" >Voltar</a>
-        </div>
-
-        <div class="col">
-          <a href="/logout" class="btn btn-secondary" >Log Out</a>
-        </div>
-      </div>
-
-    </section>
+    <a href="/veiculos/new" class="btn btn-primary" >Cadastrar cliente</a>
 
   </body>
 </html>
