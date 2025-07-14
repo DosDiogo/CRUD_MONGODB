@@ -13,14 +13,14 @@
           <td>KM</td>
           <td>Opcionais</td>
           <td>Cambio</td>
-          <td>Acoes</td>          
+          <td>Acoes</td>
         </tr>
       </thead>
       <tbody>
         <%
         veiculos.forEach(item => {
           %>
-      <tr> 
+      <tr>
         <td><a href="/veiculos/edit/<%= item._id%>" title="Editar"><%= item.tipo %></a></td>
         <td><%= item.marca %></td>
         <td><%= item.modelo %></td>
@@ -37,17 +37,40 @@
             <a href="/veiculos/delete/<%= item._id%>" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja excluir esse veiculo?')" >
               <img src="/images/delete.png" alt="icone de botao para excluir item" title="Excluir">
             </a>
-            
+
         </td>
-        
+
       </tr>
 
-          <%          
+          <%
         })
       %>
 
       </tbody>
-    </table>
+    </table>   
+        
+       
+    <nav aria-label="Page navigation example">
+      <ul class="pagination">
+        <li class="page-item">
+          <a class="page-link" href="/veiculos?pages=<%= pagesQty - 1 %>" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+          </a>
+        </li>
+        <% for(let i=1; i <= pagesQty; i++) { %>
+        <li class="page-item ">
+          <a class="page-link" href="/veiculos?pages=<%= i %>"><%= i%></a>
+        </li>        
+        <% } %>
+
+        <li class="page-item">       
+          <a class="page-link" href="/veiculos?pages=<%= pagesQty + 1 %>" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+
 
     <section class="container">
       <div class="row">
@@ -55,7 +78,7 @@
         <div class="col">
           <a href="/veiculos/new" class="btn btn-primary" >Cadastrar Cliente</a>
         </div>
-        
+
         <div class="col">
           <a href="/" class="btn btn-secondary" >Voltar</a>
         </div>
@@ -66,6 +89,10 @@
       </div>
 
     </section>
+
+    <script>
+
+    </script>
 
   </body>
 </html>

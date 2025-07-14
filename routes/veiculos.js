@@ -26,8 +26,6 @@ router.get('/edit/:veiculoId', (req, res) => {
   
 })
 
-
-
 router.post('/new', (req, res) => {
   const {tipo, marca, modelo, ano, preco, km, cambio, opcionais ,id} = req.body;
   
@@ -38,13 +36,13 @@ router.post('/new', (req, res) => {
   //return res.redirect("/new?error=0 campos obrigatorios!");
   
   const veiculo = {tipo, marca, modelo, ano, preco, km, cambio, opcionais};
-  console.log(veiculo);
+ 
   
   const promise = id ? db.updateVeiculo(id, veiculo) : db.insertVeiculo(veiculo);
 
   promise
   .then(result => {
-    res.redirect("/veiculos");
+    res.redirect("/veiculos/page?");
     //res.render('index', { title: 'Consecionaria', veiculos: veiculo });
 
   })
@@ -61,7 +59,7 @@ router.get('/delete/:veiculoId',(req, res) => {
     .catch(error => console.log(error));  
 })
 
-
+/*
 router.get('/', (req, res) => {
   db.findVeiculos()
   .then(veiculos => {
@@ -74,15 +72,21 @@ router.get('/', (req, res) => {
   
 });
 
-/*
+*/
 
-router.get('/:page?', async (req, res) => {
-  const page = parseInt(req.params.page);
+
+router.get('/', async (req, res, next) => {
+  const page = parseInt(req.query.pages) || 1 ;
+  console.log(page);
+  const limite = parseInt(req.query.limite) || 5;
+  const skip = (page - 1) * limite;   
   try {
-    //const qty = await db.countVeiculos();
-    
-    //const veiculos =  await db.findVeiculos(page);
-    res.render('veiculos', { title: 'Consecionaria', veiculos, qty});
+    const qty = await db.countVeiculos();
+
+    const pagesQty = Math.ceil(qty/limite);
+
+    const veiculos =  await db.findVeiculos(skip, limite);
+    res.render('veiculos', { title: 'Consecionaria', veiculos, qty, pagesQty, page});
   } catch (error) {
     console.log(error);
     res.render("error", {message:"Nao foi possivel listar os veiculos, tente novamente mais tarde", error})
@@ -91,7 +95,6 @@ router.get('/:page?', async (req, res) => {
 
 });
 
-*/
 module.exports = router;
 
 

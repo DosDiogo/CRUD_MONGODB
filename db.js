@@ -4,7 +4,6 @@ async function dbConnect() {
 
     if(global.connection) return global.connection;
 
-
     try {
         const client = new MongoClient(process.env.MONGODB_CONNECTION);
         await client.connect();
@@ -22,8 +21,6 @@ async function dbConnect() {
     
 }
 
-/*
-
 async function countVeiculos(){
      const connection = await dbConnect();
      return connection
@@ -31,18 +28,16 @@ async function countVeiculos(){
                     .countDocuments();
 }
 
-*/
 
-async function findVeiculos(page = 1){
-    const totalSkip = (page - 1) * process.env.PAGE_SIZE;
-    console.log(totalSkip)
+async function findVeiculos(skip, limite){
+     
     const connection = await dbConnect();
     try {
         return connection
         .collection("veiculos")
         .find({})
-        .skip(totalSkip)
-        .limit(parseInt(process.env.PAGE_SIZE))
+        .skip(skip)
+        .limit(parseInt(limite))
         .toArray();      
         
     } catch (error) {
@@ -117,7 +112,7 @@ module.exports = {
     updateVeiculo,
     deleteVeiculo,
     findVeiculo,
-    //countVeiculos,
+    countVeiculos,
     dbConnect
     
 }
