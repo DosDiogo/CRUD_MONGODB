@@ -106,6 +106,89 @@ async function deleteVeiculo(id){
     }
 }
 
+// Users CRUD 
+
+async function countUsers(){
+     const connection = await dbConnect();
+     return connection
+                    .collection("users")
+                    .countDocuments();
+}
+
+
+async function findUsers(skip, limite){
+     
+    const connection = await dbConnect();
+    try {
+        return connection
+        .collection("users")
+        .find({})
+        .skip(skip)
+        .limit(parseInt(limite))
+        .toArray();      
+        
+    } catch (error) {
+        console.log(error);
+    }
+
+}
+
+async function findUser(id){
+    const connection = await dbConnect();    
+    try {
+        const objectId =  ObjectId.createFromHexString(id);
+        return  connection
+        .collection("users")
+        .findOne({_id:objectId});  
+        
+    } catch (error) {
+    
+        console.log(error.message);
+    }
+
+}
+
+async function insertUser(user){
+    const connection = await dbConnect();
+    try {
+        return connection
+            .collection("users")
+            .insertOne(user);
+        
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
+
+async function updateUser(id, userData){
+    const connection = await dbConnect();
+    try {
+        const objectId = ObjectId.createFromHexString(id);
+        return connection
+            .collection("users")
+            .insertOne({_id:objectId},{$set: userData});
+        
+    } catch (error) {
+
+        console.log(error.message);
+        
+    }
+
+}
+
+async function deleteUser(id){
+    const connection = await dbConnect();
+    try {
+        const objectId = ObjectId.createFromHexString(id);
+        return connection
+            .collection("users")
+            .deleteOne({_id:objectId});        
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
 module.exports = { 
     findVeiculos,
     insertVeiculo,
@@ -113,6 +196,12 @@ module.exports = {
     deleteVeiculo,
     findVeiculo,
     countVeiculos,
+    findUsers,
+    insertUser,
+    updateUser,
+    deleteUser,
+    findUser,
+    countUsers,
     dbConnect
     
 }

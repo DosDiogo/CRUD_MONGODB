@@ -77,13 +77,14 @@ router.get('/', (req, res) => {
 
 router.get('/', async (req, res, next) => {
   const page = parseInt(req.query.pages) || 1 ;
-  console.log(page);
   const limite = parseInt(req.query.limite) || 5;
   const skip = (page - 1) * limite;   
   try {
     const qty = await db.countVeiculos();
+    console.log(qty);
 
     const pagesQty = Math.ceil(qty/limite);
+    console.log(pagesQty);
 
     const veiculos =  await db.findVeiculos(skip, limite);
     res.render('veiculos', { title: 'Consecionaria', veiculos, qty, pagesQty, page});

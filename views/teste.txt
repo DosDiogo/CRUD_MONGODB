@@ -1,0 +1,13 @@
+<% for(let i=1; i <= pagesQty; i++) {
+            if (page === i) { %>
+              <li class="page-item ">
+                <a class="page-link active" href="/users?pages=<%= i %>"><%= i%></a>
+              </li>
+              <%
+            } else {
+              %>
+              <li class="page-item ">
+                <a class="page-link" href="/veiculos?pages=<%= i %>"><%= i%></a>
+              </li>
+             
+        <% } } %>

@@ -1,40 +1,27 @@
 <%-include("top.ejs")%>
-    <p>Lista de veiculos</p>
-    <div class="alert alert-info">Quantidade de veículos: <%= qty %> </div>
+    <p>Lista de usuarios cadastrados.</p>
+    <div class="alert alert-info">Quantidade de usuarios cadastrados: <%= qty %> </div>
 
     <table class="table table-bordered table-striped table-hover">
       <thead class="thead-dark">
         <tr>
-          <td>Tipo</td>
-          <td>Marca</td>
-          <td>Modelo</td>
-          <td>Ano</td>
-          <td>Preco</td>
-          <td>KM</td>
-          <td>Opcionais</td>
-          <td>Cambio</td>
+          <td>Usuario</td>
+          <td>E-mail</td>
           <td>Acoes</td>
         </tr>
       </thead>
       <tbody>
-        <%
-        veiculos.forEach(item => {
-          %>
+        <% users.forEach(item => { %>
       <tr>
-        <td><a href="/veiculos/edit/<%= item._id%>" title="Editar"><%= item.tipo %></a></td>
-        <td><%= item.marca %></td>
-        <td><%= item.modelo %></td>
-        <td><%= item.ano %></td>
-        <td><%= item.preco %></td>
-        <td><%= item.km %></td>
-        <td><%= item.opcionais %></td>
-        <td><%= item.cambio %></td>
+        <td><a href="/users/edit/<%= item._id%>" title="Editar"><%= item.name %></a></td>
+        <td><%= item.email %></td>
+        
         <td>
-            <a href="/veiculos/edit/<%= item._id%>">
+            <a href="/users/edit/<%= item._id%>">
               <img src="/images/edit.png" alt="icone de botao para editar item" title="Editar">
             </a>
 
-            <a href="/veiculos/delete/<%= item._id%>" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja excluir esse veiculo?')" >
+            <a href="/users/delete/<%= item._id%>" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja excluir esse usuário?')" >
               <img src="/images/delete.png" alt="icone de botao para excluir item" title="Excluir">
             </a>
 
@@ -51,41 +38,40 @@
         
        
     <nav aria-label="Page navigation example">
-      <ul class="pagination">
-        
+      <ul class="pagination">        
         <li class="page-item">
-          <a class="page-link" href="/veiculos?pages=<%= pagesQty -1%>" aria-label="Previous">
+          <a class="page-link" href="/users?pages=<%= pagesQty - 1 %>" aria-label="Previous">
             <span aria-hidden="true">&laquo;</span>
           </a>
         </li>
+            
         <% for(let i=1; i <= pagesQty; i++) {
             if (page === i) { %>
               <li class="page-item ">
-                <a class="page-link active" href="/veiculos?pages=<%= i %>"><%= i%></a>
+                <a class="page-link active" href="/users?pages=<%= i %>"><%= i%></a>
               </li>
               <%
             } else {
               %>
               <li class="page-item ">
-                <a class="page-link" href="/veiculos?pages=<%= i %>"><%= i%></a>
+                <a class="page-link" href="/users?pages=<%= i %>"><%= i%></a>
               </li>
              
-        <% } } %>
+        <% } } %>        
 
         <li class="page-item">       
-          <a class="page-link" href="/veiculos?pages=<%= pagesQty + 1 %>" aria-label="Next">
+          <a class="page-link"  href="/users?pages=<%= pagesQty + 1 %>" aria-label="Next">
             <span aria-hidden="true">&raquo;</span>
           </a>
         </li>
       </ul>
     </nav>
 
-
     <section class="container">
       <div class="row">
 
         <div class="col">
-          <a href="/veiculos/new" class="btn btn-primary" >Cadastrar Cliente</a>
+          <a href="/users/new" class="btn btn-primary" >Cadastrar Cliente</a>
         </div>
 
         <div class="col">
