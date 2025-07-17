@@ -152,6 +152,7 @@ async function findUser(id){
 async function insertUser(user){
     user.password = bcrypt.hashSync(user.password, 12);
     const connection = await dbConnect();
+    
     try {
         return connection
             .collection("users")
@@ -163,7 +164,7 @@ async function insertUser(user){
 }
 
 
-async function updateUser(id, userData){
+async function updateUser(id, user){
     if (user.password)
         user.password = bcrypt.hashSync(user.password, 12);
     const connection = await dbConnect();
@@ -171,7 +172,7 @@ async function updateUser(id, userData){
         const objectId = ObjectId.createFromHexString(id);
         return connection
             .collection("users")
-            .insertOne({_id:objectId},{$set: userData});
+            .insertOne({_id:objectId},{$set: user});
         
     } catch (error) {
 
