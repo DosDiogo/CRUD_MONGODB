@@ -1,6 +1,30 @@
 <%-include("top.ejs")%>
 
-<p>Hello World</p>
+<div class="col-6">
+    <form action="/login" method="POST">
+        <div class="form-group mb-3">
+            <label for="name">Username:</label>
+            <input type="text" name="name" id="" class="form-control" placeholder="Digite o seu username">
+        </div>
+        <div class="form-group mb-3">
+            <label for="password">Username:</label>
+            <input type="password" name="password" id="" class="form-control" placeholder="Digite a sua senha">
+        </div>
+
+        <input type="submit" name="login" id="" class="btn btn-primary">
+    </form>
+    <hr />
+
+    <% if(message){ %>    
+    <div class="alert alert-danger">
+        <%= message %>
+    </div>
+    <% } %>
+
+    <p>
+        <a href="/users/forgot">Esqueceu sua senha?</a> | <a href="/users/new">Nao possui cadastro?</a>
+    </p>
+</div>
 
 <%-include("bottom.ejs")%>
  

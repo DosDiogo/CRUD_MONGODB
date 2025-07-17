@@ -43,7 +43,7 @@ router.post('/new', (req, res) => {
 
   promise
   .then(result => {
-    res.redirect("/users");
+    res.redirect("/");
     //res.render('index', { title: 'Consecionaria', veiculos: veiculo });
 
   })
