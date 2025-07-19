@@ -1,8 +1,6 @@
 const express = require('express');
 const router = express.Router();
 //const { ObjectId} = require("mongodb");
-
-
 const db = require("../db")
 
 router.get('/new', (req, res) => {
@@ -16,9 +14,8 @@ router.get('/edit/:veiculoId', (req, res) => {
 
   db.findVeiculo(id)
     .then(veiculos => {
-      //const veiculos = [veiculo];
-      console.log(veiculos);     
-      res.render('newVeiculo', {title: "Editar Veiculo", veiculos}); 
+      //const veiculos = [veiculo];    
+      res.render('editVeiculo', {title: "Editar Veiculo", veiculos}); 
       
     })
     .catch(error => {
@@ -27,7 +24,11 @@ router.get('/edit/:veiculoId', (req, res) => {
 })
 
 router.post('/new', (req, res) => {
-  const {tipo, marca, modelo, ano, preco, km, cambio, opcionais ,id} = req.body;
+  console.log("passou aqui bb");
+  console.log(req.body);
+
+  
+  const {tipo, marca, modelo, ano, preco, km, cambio, opcionais, id} = req.body;
   
   if(!tipo || !marca || !modelo || !ano || !preco || !km && !/[0-9]+/.test(res.body))
     return res.redirect("/veiculos/new?error=0 campos obrigatorios!");
@@ -42,15 +43,13 @@ router.post('/new', (req, res) => {
 
   promise
   .then(result => {
-    res.redirect("/veiculos/page?");
+    res.redirect("/veiculos/page");
     //res.render('index', { title: 'Consecionaria', veiculos: veiculo });
 
   })
   .catch(error => {
     console.log(error)});
 })
-
-
 
 router.get('/delete/:veiculoId',(req, res) => {
   const id = req.params.veiculoId;
@@ -75,16 +74,14 @@ router.get('/', (req, res) => {
 */
 
 
-router.get('/', async (req, res, next) => {
+router.get('/{page}', async (req, res, next) => {
   const page = parseInt(req.query.pages) || 1 ;
   const limite = parseInt(req.query.limite) || 5;
   const skip = (page - 1) * limite;   
   try {
-    const qty = await db.countVeiculos();
-    console.log(qty);
+    const qty = await db.countVeiculos();    
 
-    const pagesQty = Math.ceil(qty/limite);
-    console.log(pagesQty);
+    const pagesQty = Math.ceil(qty/limite);    
 
     const veiculos =  await db.findVeiculos(skip, limite);
     res.render('veiculos', { title: 'Consecionaria', veiculos, qty, pagesQty, page});

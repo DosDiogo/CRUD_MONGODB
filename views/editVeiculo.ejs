@@ -1,51 +1,97 @@
-<%-include("top.ejs")%>
-    <p>Lista de veiculos</p>
+<%- include("top.ejs") %>
+    <p>Preencha os compos pra crear ou editar usuario</p>
 
-    <table class="table table-bordered table-striped table-hover">
-      <thead class="thead-dark">
-        <tr>
-          <td>Tipo</td>
-          <td>Marca</td>
-          <td>Modelo</td>
-          <td>Ano</td>
-          <td>Preco</td>
-          <td>KM</td>
-          <td>Acoes</td>
-          
-        </tr>
-      </thead>
-      <tbody>
-        <%
-        veiculo.forEach(item => {
-          %>
-      <tr> 
-        <td><a href="/veiculos/edit/<%= item._id%>" title="Editar"><%= item.tipo %></a></td>
-        <td><%= item.marca %></td>
-        <td><%= item.modelo %></td>
-        <td><%= item.ano %></td>
-        <td><%= item.preco %></td>
-        <td><%= item.km %></td>
-        <td>
-            <a href="/veiculos/edit/<%= item._id%>">
-              <img src="/images/edit.png" alt="icone de botao para editar item" title="Editar">
-            </a>
+    <div class="col-6">
+        <form action="/veiculos/new" method="POST">           
+            <div class="row mb-3">
+                <div class="form-group">
+                    <label for="tipo">Tipo:</label>
+                    <input type="text" name="tipo" value="<%=veiculos.tipo%>" placeholder="Tipo de veiculo" class="form-control" required>
+                </div>
+            </div>
 
-            <a href="/veiculos/delete/<%= item._id%>" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja excluir esse veiculo?')" >
-              <img src="/images/delete.png" alt="icone de botao para excluir item" title="Excluir">
-            </a>
+            <div class="row mb-3">
+                <div class="form-group">
+                    <label for="marca">Marca:</label>
+                    <input type="text" name="marca" value="<%=veiculos.marca%>" placeholder="Marca do veiculo" class="form-control" required>
+                    
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="form-group">
+                    <label for="modelo">Modelo:</label>
+                    <input type="text" name="modelo" value="<%=veiculos.modelo%>" placeholder="Modelo do veiculo" class="form-control" required>         
+                    
+                </div>
+            </div>
+
+             <div class="row mb-3">
+                <div class="form-group">
+                    <label for="km">Km:</label>
+                    <input type="number" name="km" value="<%=veiculos.km%>" placeholder="Kilometragem do veiculo" class="form-control" required>         
+                    
+                </div>
+            </div>
             
-        </td>
-        
-      </tr>
+            <div class="row mb-3">
+                <div class="form-group">
+                    <label for="ano">Ano:</label>
+                    <input type="number" name="ano" value="<%=veiculos.ano%>" placeholder="Ano de fabricacao" class="form-control" required>
+                    
+                </div>
+            </div>
 
-          <%          
-        })
-      %>
+            <div class="row mb-3">
+                <div class="form-group">
+                    <label for="name">Preco:</label>
+                    <input type="number" name="preco" value="<%=veiculos.preco%>" placeholder="Preço" class="form-control" required>                    
+                    
+                </div>
+            </div>
 
-      </tbody>
-    </table>
+            
+            <div class="row mb-3">
+                <div class="form-group">
+                    <label for="name">Opcionais:</label>
+                    <input type="text" name="opcionais" value="<%=veiculos.opcionais%>" placeholder="Opcionais" class="form-control" required>             
+                    
+                    
+                </div>
+            </div>
 
-    <a href="/veiculos/new" class="btn btn-primary" >Cadastrar cliente</a>
+            <div class="row mb-3">
+                <select name="cambio" id="cambio" class="form-control" >
+                    <option>Selecione tipo de cambio</option>
+                    <option value="M">Manual</option>
+                    <option value="A">Automático</option>
+                </select>
 
-  </body>
+            </div> 
+            
+            <div>
+                <input type="submit" value="Salvar" class="btn btn-primary" ></input>
+                <a href="/veiculos" class="btn btn-secondary" >Cancelar</a>
+            </div>
+
+        </form>
+    </div>
+
+    <script>
+        if(window.location.search){
+            const error = window.location.search.split('=')[1];
+            alert(decodeURI(error))
+        }
+
+        <%
+            if(veiculos.cambio){
+                %>
+                    document.getElementById("cambio").value = "<%= veiculos.cambio %>";
+                <%
+            }
+        %>
+    </script>
+    
+    
+</body>
 </html>

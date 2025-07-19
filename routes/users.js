@@ -22,7 +22,7 @@ router.get('/edit/:userId', (req, res) => {
   db.findUser(id)
     .then(user => {
       
-      res.render('newUser', {title: "Editar usuário", user}); 
+      res.render('editUser', {title: "Editar usuário", user}); 
       
     })
     .catch(error => {
@@ -55,26 +55,10 @@ router.post('/new', (req, res) => {
 
 router.get('/delete/:userId',(req, res) => {
   const id = req.params.userId;
-  db.deleteVeiculo(id)
+  db.deleteUser(id)
     .then(result => {res.redirect("/users")})
     .catch(error => console.log(error));  
 })
-
-/*
-router.get('/', (req, res) => {
-  db.findVeiculos()
-  .then(veiculos => {
-    res.render('veiculos', { title: 'Consecionaria', veiculos, qty: veiculos.length});
-
-  })
-  .catch(error => {
-    console.log(error)
-    res.render("error", {message:"Nao foi possivel listar os veiculos, tente novamente mais tarde", error})});
-  
-});
-
-*/
-
 
 router.get('/{:pages}', async (req, res, next) => {
   

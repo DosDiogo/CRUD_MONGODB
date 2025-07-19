@@ -82,11 +82,12 @@ async function updateVeiculo(id, veiculoData){
         const objectId = ObjectId.createFromHexString(id);
         return connection
             .collection("veiculos")
-            .insertOne({_id:objectId},{$set: veiculoData});
+            //.insertOne({_id:objectId},{$set: veiculoData});
+            .insertOne({_id:objectId},{veiculoData});
         
     } catch (error) {
-
-        console.log(error.message);
+        console.log("passou aqui")
+        console.log(error);
         
     }
 
@@ -167,7 +168,8 @@ async function updateUser(id, userData){
         const objectId = ObjectId.createFromHexString(id);
         return connection
             .collection("users")
-            .insertOne({_id:objectId},{$set: userData});
+            .insertOne({_id:objectId}, userData);
+            //.insertOne({_id:objectId},{$set: userData});
         
     } catch (error) {
 
