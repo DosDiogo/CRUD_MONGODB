@@ -1,4 +1,5 @@
 const {MongoClient, ObjectId} = require("mongodb");
+const bcrypt = require("bcryptjs");
 
 async function dbConnect() {
 
@@ -75,8 +76,6 @@ async function insertVeiculo(veiculo){
 
 
 async function updateVeiculo(id, veiculoData){
-    console.log("Passoua aqui");
-    console.log(veiculoData);
     const connection = await dbConnect();
     try {
         const objectId = ObjectId.createFromHexString(id);
@@ -150,7 +149,9 @@ async function findUser(id){
 }
 
 async function insertUser(user){
+    user.password = bcrypt.hashSync(user.password, 12);
     const connection = await dbConnect();
+    
     try {
         return connection
             .collection("users")
@@ -162,15 +163,19 @@ async function insertUser(user){
 }
 
 
-async function updateUser(id, userData){
+async function updateUser(id, user){
+    if (user.password)
+        user.password = bcrypt.hashSync(user.password, 12);
+    
     const connection = await dbConnect();
+
     try {
         const objectId = ObjectId.createFromHexString(id);
+        delete user._id;
+        console.log(user);
         return connection
             .collection("users")
-            .insertOne({_id:objectId}, userData);
-            //.insertOne({_id:objectId},{$set: userData});
-        
+            .updateOne({_id:objectId},{$set: user}, {upsert: false});        
     } catch (error) {
 
         console.log(error.message);

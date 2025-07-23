@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const db = require("../db");
+const sendMail = require("../mail");
 
 /* GET users listing. 
 router.get('/', (req, res, next) => {
@@ -30,28 +31,35 @@ router.get('/edit/:userId', (req, res) => {
   
 })
 
-router.post('/new', (req, res) => {
+router.post('/new', async (req, res) => {
+
   const {name, email, password, id} = req.body;
   
-  if(!name || !email || !password)
-    return res.redirect("/user/new?error= campos obrigatorios!");
+  if(!name || !email || !password) return res.redirect("/users/new?error= campos obrigatorios!");
   
   const user = {name, email, password};
- 
-  
-  const promise = id ? db.updateUser(id, user) : db.insertUser(user);
 
-  promise
-  .then(result => {
-    res.redirect("/users");
-    //res.render('index', { title: 'Consecionaria', veiculos: veiculo });
+  try {
 
-  })
-  .catch(error => {
-    console.log(error)});
-})
+  await id ? db.updateUser(id, user) : db.insertUser(user);
+    
+  await sendMail(user.email, "Bem vindo a sistema DevDÓS",`
+          Bem-vindo ${user.name}!
+       
+          Sua conta foi criada com sucesso.
+      
+          Att,
+      
+          DevDÓS Support.`);
 
+  res.redirect("/");
+    
+  } catch (error) {
+    console.error(error);
+    res.redirect("/users/new?error=" + error.message);
+  }
 
+})  
 
 router.get('/delete/:userId',(req, res) => {
   const id = req.params.userId;
