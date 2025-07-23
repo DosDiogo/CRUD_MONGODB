@@ -17,7 +17,7 @@ async function findUserByEmail(email) {
                     .findOne({email});
     
 }
-
+//Generate password function
 function generatePassword(){
     const chars = "abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     let password = "";
