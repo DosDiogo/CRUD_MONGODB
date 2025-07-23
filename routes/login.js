@@ -1,5 +1,5 @@
 const express = require('express');
-const bcrypt = require("bcryptjs");
+const passport = require("passport");
 const router = express.Router();
 const db = require("../db");
 const sendMail = require("../mail");
@@ -11,6 +11,20 @@ router.get('/', (req, res, next) => {
 
 });
 
+router.post('/login', passport.authenticate("local",{
+  successRedirect: "/index",
+  failureRedirect: "/?message=Usuário ou senha inválidos."
+}));
+
+router.get('/forgot', async (req, res, next) => {
+  
+  return res.render("forgot", {title: "Forgot password", message:""});
+
+});
+
+
+
+/*
 router.post('/login', async (req, res, next) => {
   let {email, password} = req.body;
   const user = await findUserByEmail(email);
@@ -29,6 +43,8 @@ router.get('/forgot', async (req, res, next) => {
   return res.render("forgot", {title: "Forgot password", message:""});
 
 });
+
+*/
 
 router.post('/forgot', async (req, res, next) => {
   const email = req.body.email;
