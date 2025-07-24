@@ -3,14 +3,6 @@ const router = express.Router();
 const db = require("../db");
 const sendMail = require("../mail");
 
-/* GET users listing. 
-router.get('/', (req, res, next) => {
-  res.render('users',  {title: 'Cadastro de nuevos usuários',qty:[3], users:[1,2]});
-});
-
-*/
-
-
 router.get('/new', (req, res) => {
   res.render('newUser', { title: 'Cadastro de nuevos usuários', user:[]});
   
@@ -78,8 +70,7 @@ router.get('/{:pages}', async (req, res, next) => {
  
     const pagesQty = Math.ceil(qty/limite);  
 
-    const users =  await db.findUsers(skip, limite);
-   
+    const users =  await db.findUsers(skip, limite);   
 
     res.render('users', { title: 'Usuários', users, qty, pagesQty, page});
   } catch (error) {

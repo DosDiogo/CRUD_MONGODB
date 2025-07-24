@@ -85,7 +85,6 @@ async function updateVeiculo(id, veiculoData){
             .insertOne({_id:objectId},{veiculoData});
         
     } catch (error) {
-        console.log("passou aqui")
         console.log(error);
         
     }
