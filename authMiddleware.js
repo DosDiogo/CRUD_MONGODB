@@ -6,9 +6,11 @@ module.exports = (passport) => {
     
     passport.use(new LocalStrategy({
         usernameField: "email",
-        passwordField: "password",        
+        passwordField: "password"        
 
     }, async (username, password, done) =>{
+        console.log(password);
+        
         try {
             const user = auth.findUserByEmail(username);
 
