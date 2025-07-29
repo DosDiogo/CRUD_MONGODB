@@ -41,15 +41,15 @@ app.use(session({
 }))
 
 app.use(passport.initialize());
+app.use(passport.session());
 
 
-
+//andpoints
 app.use('/', loginRouter);
-app.use('/index', indexRouter);
-app.use('/veiculos', veiculosRouter);
-app.use('/users', usersRouter);
+app.use('/index', authorizationMiddleware, indexRouter);
+app.use('/veiculos', authorizationMiddleware,veiculosRouter);
+app.use('/users', authorizationMiddleware, usersRouter);
 
-//app.use('/veiculos', veiculosRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

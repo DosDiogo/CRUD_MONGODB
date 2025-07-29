@@ -70,16 +70,18 @@
     <section class="container">
       <div class="row">
 
-        <div class="col">
+        <div class="col-2">
           <a href="/users/new" class="btn btn-primary" >Cadastrar Cliente</a>
         </div>
 
-        <div class="col">
+        <div class="col-2">
           <a href="/index" class="btn btn-secondary" >Voltar</a>
         </div>
 
-        <div class="col">
-          <a href="/logout" class="btn btn-secondary" >Log Out</a>
+        <div class="col-2">
+          <form action="/logout" method="POST">
+            <input type="submit" value="Logout" class="btn btn-secondary" >
+          </form>
         </div>
       </div>
 
