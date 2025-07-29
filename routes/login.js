@@ -16,26 +16,12 @@ router.post('/login', passport.authenticate("local",{
   failureRedirect: "/?message=Usuário ou senha inválidos."
 }));
 
-router.get('/forgot', async (req, res, next) => {
-  
-  return res.render("forgot", {title: "Forgot password", message:""});
 
-});
+router.post('/logout', (req, res, next) => {
+  req.logOut(() => {
+    res.redirect("/");
+  });
 
-
-
-/*
-router.post('/login', async (req, res, next) => {
-  let {email, password} = req.body;
-  const user = await findUserByEmail(email);
-
-  if(!user) return res.render("login", {title: "Login", message:"Usuario ou senha inválidos."});
-
-  password = req.body.password;
-
-  if(!bcrypt.compareSync(password, user.password)) return res.render("login", {title: "ogin", message:"Usuario ou senha inválidos."});
-  
-  res.redirect('/index');
 });
 
 router.get('/forgot', async (req, res, next) => {
@@ -43,8 +29,6 @@ router.get('/forgot', async (req, res, next) => {
   return res.render("forgot", {title: "Forgot password", message:""});
 
 });
-
-*/
 
 router.post('/forgot', async (req, res, next) => {
   const email = req.body.email;

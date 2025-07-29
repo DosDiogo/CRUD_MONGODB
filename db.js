@@ -82,7 +82,7 @@ async function updateVeiculo(id, veiculoData){
         return connection
             .collection("veiculos")
             //.insertOne({_id:objectId},{$set: veiculoData});
-            .insertOne({_id:objectId},{veiculoData});
+            .updateOne({_id:objectId},{$set: veiculoData});
         
     } catch (error) {
         console.log(error);
@@ -98,7 +98,6 @@ async function deleteVeiculo(id){
         return connection
             .collection("veiculos")
             .deleteOne({_id:objectId});
-            //.deleteOne({_id:objectId},{$set: veiculos});
         
     } catch (error) {
         console.log(error.message);
@@ -174,7 +173,7 @@ async function updateUser(id, user){
         console.log(user);
         return connection
             .collection("users")
-            .updateOne({_id:objectId},{$set: user}, {upsert: false});        
+            .updateOne({_id:objectId},{$set: user});        
     } catch (error) {
 
         console.log(error.message);

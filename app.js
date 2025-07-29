@@ -3,7 +3,8 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-const authMiddleware = require("./authMiddleware");
+const authenticationMiddleware = require("./authenticationMiddleware");
+const authorizationMiddleware = require("./authenticationMiddleware");
 const passport = require("passport");
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
@@ -12,7 +13,6 @@ const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const veiculosRouter = require('./routes/veiculos');
 const loginRouter = require('./routes/login');
-
 const app = express();
 
 // view engine setup
@@ -24,7 +24,7 @@ app.use(express.urlencoded({ extended:true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-authMiddleware(passport);
+authenticationMiddleware(passport);
 
 app.use(session({
   store: MongoStore.create({
@@ -36,7 +36,8 @@ app.use(session({
   secret: process.env.MONGO_STORE_SECRET,
   resave: false,
   saveUninitialized:false,
-  cookie:{ maxAge: 30 * 60 * 1000 }
+  cookie:{ maxAge: 30 * 60 * 1000 },
+  rolling: true
 }))
 
 app.use(passport.initialize());

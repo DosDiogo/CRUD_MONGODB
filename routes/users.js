@@ -44,7 +44,7 @@ router.post('/new', async (req, res) => {
       
           DevDÓS Support.`);
 
-  res.redirect("/");
+  res.redirect("/users");
     
   } catch (error) {
     console.error(error);

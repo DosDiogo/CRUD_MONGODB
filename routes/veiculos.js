@@ -24,9 +24,8 @@ router.get('/edit/:veiculoId', (req, res) => {
 })
 
 router.post('/new', (req, res) => {
-  console.log("passou aqui bb");
+  console.log("Aqui é os dados da requisicao");
   console.log(req.body);
-
   
   const {tipo, marca, modelo, ano, preco, km, cambio, opcionais, id} = req.body;
   
