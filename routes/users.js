@@ -25,11 +25,11 @@ router.get('/edit/:userId', (req, res) => {
 
 router.post('/new', async (req, res) => {
 
-  const {name, email, password, id} = req.body;
+  const {name, email, password, id, profile} = req.body;
   
   if(!name || !email || !password) return res.redirect("/users/new?error= campos obrigatorios!");
   
-  const user = {name, email, password};
+  const user = {name, email, password, profile};
 
   try {
 

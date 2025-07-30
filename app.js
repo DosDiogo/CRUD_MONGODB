@@ -4,7 +4,7 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const authenticationMiddleware = require("./authenticationMiddleware");
-const authorizationMiddleware = require("./authenticationMiddleware");
+const authorizationMiddleware = require("./authorizationMiddleware");
 const passport = require("passport");
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
@@ -45,11 +45,19 @@ app.use(passport.session());
 
 
 //andpoints
+
 app.use('/', loginRouter);
 app.use('/index', authorizationMiddleware, indexRouter);
 app.use('/veiculos', authorizationMiddleware,veiculosRouter);
 app.use('/users', authorizationMiddleware, usersRouter);
 
+
+/*
+app.use('/', loginRouter);
+app.use('/index', indexRouter);
+app.use('/veiculos', veiculosRouter);
+app.use('/users',  usersRouter);
+*/
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

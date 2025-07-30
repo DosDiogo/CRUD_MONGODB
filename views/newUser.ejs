@@ -26,6 +26,16 @@
                 </div>
             </div>
 
+            <div class="row mb-3">
+                <div class="form-group">
+                    <label for="password" >Senha:</label>
+                    <select name="profile" class="form-control" value="<%=user.profile%>" >
+                        <option value="1">Usuário Comum</option>
+                        <option value="2">Usuario Administrador</option>
+                    </select>                    
+                </div>
+            </div>
+
             
             <input type="hidden" name="id" value="<%=user._id%>">
             

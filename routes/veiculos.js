@@ -24,16 +24,12 @@ router.get('/edit/:veiculoId', (req, res) => {
 })
 
 router.post('/new', (req, res) => {
-  console.log("Aqui é os dados da requisicao");
-  console.log(req.body);
+ 
   
   const {tipo, marca, modelo, ano, preco, km, cambio, opcionais, id} = req.body;
   
   if(!tipo || !marca || !modelo || !ano || !preco || !km && !/[0-9]+/.test(res.body))
     return res.redirect("/veiculos/new?error=0 campos obrigatorios!");
-  
-  //if(req.body.ano || req.body.preco || )
-  //return res.redirect("/new?error=0 campos obrigatorios!");
   
   const veiculo = {tipo, marca, modelo, ano, preco, km, cambio, opcionais};
  
@@ -57,22 +53,6 @@ router.get('/delete/:veiculoId',(req, res) => {
     .catch(error => console.log(error));  
 })
 
-/*
-router.get('/', (req, res) => {
-  db.findVeiculos()
-  .then(veiculos => {
-    res.render('veiculos', { title: 'Consecionaria', veiculos, qty: veiculos.length});
-
-  })
-  .catch(error => {
-    console.log(error)
-    res.render("error", {message:"Nao foi possivel listar os veiculos, tente novamente mais tarde", error})});
-  
-});
-
-*/
-
-
 router.get('/{page}', async (req, res, next) => {
   const page = parseInt(req.query.pages) || 1 ;
   const limite = parseInt(req.query.limite) || 5;
@@ -90,7 +70,7 @@ router.get('/{page}', async (req, res, next) => {
     
   }
 
-});
+})
 
 module.exports = router;
 

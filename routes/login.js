@@ -3,7 +3,7 @@ const passport = require("passport");
 const router = express.Router();
 const db = require("../db");
 const sendMail = require("../mail");
-const {findUserByName, findUserByEmail, generatePassword } = require("../auth");
+const {findUserByEmail, generatePassword } = require("../auth");
 
 /* GET home page*/
 router.get('/', (req, res, next) => {
@@ -67,9 +67,7 @@ router.post('/forgot', async (req, res, next) => {
     console.error(error);
     res.render("forgot", {title: "Recueração de senha", message:error.message});
   }
-
-
-
+  
 });
 
 

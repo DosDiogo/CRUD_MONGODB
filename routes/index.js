@@ -5,16 +5,8 @@ const db = require("../db")
 
 /* GET home page*/
 router.get('/', (req, res, next) => {
-  res.render('index', {title:"Bem-Vindo ao sistema de gestao de veiculos."});
-  /*db.findVeiculos()
-  .then(veiculos => {
-    console.log(veiculos);
-    res.render('index', { title: 'Consecionaria', veiculos: veiculos });
+  res.render('index', {title:"Bem-Vindo ao sistema de gestao de veiculos.", userProfile: parseInt(req.user.profile)});
 
-  })
-  .catch(error => console.log(error));
-
-  */
 });
 
 

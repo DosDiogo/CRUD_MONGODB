@@ -7,6 +7,7 @@
         <tr>
           <td>Usuario</td>
           <td>E-mail</td>
+          <td>Perfil do usuário</td>
           <td>Acoes</td>
         </tr>
       </thead>
@@ -15,6 +16,8 @@
       <tr>
         <td><a href="/users/edit/<%= item._id%>" title="Editar"><%= item.name %></a></td>
         <td><%= item.email %></td>
+
+        <td><%= parseInt(item.profile) === 1 ? "USER" : "ADMIN" %></td>
         
         <td>
             <a href="/users/edit/<%= item._id%>">
