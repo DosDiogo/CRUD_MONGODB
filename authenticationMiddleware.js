@@ -24,7 +24,6 @@ module.exports = (passport) => {
         passwordField: "password"        
 
     }, async (username, password, done) => {
-        console.log(password);
         
         try {
             const user =  await auth.findUserByEmail(username);
